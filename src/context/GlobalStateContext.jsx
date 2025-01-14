@@ -1,9 +1,7 @@
 import React, { createContext, useState } from "react";
 
-// Creazione del contesto
 export const GlobalStateContext = createContext();
 
-// Provider per il contesto
 export const GlobalStateProvider = ({ children }) => {
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
