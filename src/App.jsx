@@ -1,13 +1,35 @@
-import './App.css'
+import React, { useContext } from "react";
+import { GlobalStateProvider, GlobalStateContext } from "./context/GlobalStateContext";
+import SearchBar from "./components/searchBar";
+import MovieCard from "./components/MovieCard";
+import "./styles/App.css";
 
-function App() {
-  
+const AppContent = () => {
+  const { movies } = useContext(GlobalStateContext);
 
   return (
-    <>
-      
-    </>
-  )
-}
+    <div>
+      <SearchBar />
+      <div className="movies-container">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-export default App
+const App = () => (
+  <GlobalStateProvider>
+    <div className="app">
+      <header className="app-header">
+        <h1>BoolFlix</h1>
+      </header>
+      <main>
+        <AppContent />
+      </main>
+    </div>
+  </GlobalStateProvider>
+);
+
+export default App;
