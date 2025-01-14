@@ -29,4 +29,23 @@ const SearchBar = () => {
   );
 };
 
+const handleSearch = async () => {
+    setQuery(inputValue);
+  
+    const API_KEY = "49bd49360191f8c5d1e540fb6af44bd2";
+    const movieResponse = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${inputValue}&language=it-IT`
+    );
+    const tvResponse = await fetch(
+      `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${inputValue}&language=it-IT`
+    );
+  
+    const movieData = await movieResponse.json();
+    const tvData = await tvResponse.json();
+  
+    setMovies(movieData.results || []);
+    setTvShows(tvData.results || []);
+  };
+  
+
 export default SearchBar;
