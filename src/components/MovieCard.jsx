@@ -1,20 +1,33 @@
 import React from "react";
 
-  const MovieCard = ({ movie }) => {
-    const getStars = (rating) => Math.ceil(rating / 2);
-  
-    return (
-      <div className="movie-card">
-        <img
-          src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-          alt={movie.title || movie.name}
-        />
-        <div className="movie-info">
-          <h3>{movie.title || movie.name}</h3>
-          <p>⭐ {getStars(movie.vote_average)} / 5</p>
-        </div>
+const MovieCard = ({ movie }) => {
+  const {
+    title,
+    original_title,
+    original_name,
+    vote_average,
+    poster_path,
+    original_language,
+  } = movie;
+
+  const imageUrl = poster_path
+    ? `https://image.tmdb.org/t/p/w342${poster_path}`
+    : "https://via.placeholder.com/342x513?text=Nessuna+Immagine";
+
+  const roundedVote = Math.ceil(vote_average / 2); // Arrotondiamo da 1 a 5
+
+  return (
+    <div className="card">
+      <img src={imageUrl} alt={title || original_name} />
+      <div className="card-info">
+        <h3>{title || original_name}</h3>
+        <p>Titolo originale: {original_title || original_name}</p>
+        <p>Lingua: {original_language.toUpperCase()}</p>
+        <p>Voto: {"★".repeat(roundedVote) + "☆".repeat(5 - roundedVote)}</p>
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
+
 export default MovieCard;
+
