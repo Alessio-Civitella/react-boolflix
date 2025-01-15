@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GlobalStateContext } from "../context/GlobalStateContext";
 import MovieCard from "./MovieCard";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 
 const AppContent = () => {
   const { movies, tvShows, query } = useContext(GlobalStateContext);
@@ -10,7 +10,7 @@ const AppContent = () => {
 
   const renderMovies = () => {
     if (loading) {
-      return <p>Caricamento in corso...</p>;
+      return <p className="loading-message">Caricamento in corso...</p>;
     }
 
     if (error) {
@@ -18,29 +18,41 @@ const AppContent = () => {
     }
 
     if (!movies.length && !tvShows.length && query) {
-      return <p>Nessun risultato trovato per "{query}".</p>;
+      return (
+        <p className="no-results">
+          Nessun risultato trovato per "<strong>{query}</strong>".
+        </p>
+      );
     }
 
     return (
       <>
-        <h2>Film</h2>
-        <div className="movies-container">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
-        <h2>Serie TV</h2>
-        <div className="movies-container">
-          {tvShows.map((tv) => (
-            <MovieCard key={tv.id} movie={tv} />
-          ))}
-        </div>
+        {movies.length > 0 && (
+          <>
+            <h2 className="section-title">Film</h2>
+            <div className="movies-container">
+              {movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+          </>
+        )}
+        {tvShows.length > 0 && (
+          <>
+            <h2 className="section-title">Serie TV</h2>
+            <div className="movies-container">
+              {tvShows.map((tv) => (
+                <MovieCard key={tv.id} movie={tv} />
+              ))}
+            </div>
+          </>
+        )}
       </>
     );
   };
 
   return (
-    <div>
+    <div className="app-content">
       <SearchBar setLoading={setLoading} setError={setError} />
       {renderMovies()}
     </div>
@@ -48,3 +60,4 @@ const AppContent = () => {
 };
 
 export default AppContent;
+

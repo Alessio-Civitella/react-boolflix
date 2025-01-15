@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalStateProvider, GlobalStateContext } from "./context/GlobalStateContext";
-import SearchBar from "./components/searchBar";
+import SearchBar from "./components/AppContent";
 import MovieCard from "./components/MovieCard";
 import "./styles/App.css";
 
