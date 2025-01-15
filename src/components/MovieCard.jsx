@@ -1,18 +1,20 @@
 import React from "react";
 
-const MovieCard = ({ movie }) => {
-    const getFlag = (language) =>
-      `https://flagcdn.com/w40/${language}.png`; // Lingua in formato ISO 639-1
+  const MovieCard = ({ movie }) => {
+    const getStars = (rating) => Math.ceil(rating / 2);
   
     return (
       <div className="movie-card">
-        <h3>{movie.title || movie.name}</h3>
-        <p>Titolo Originale: {movie.original_title || movie.original_name}</p>
-        <img src={getFlag(movie.original_language)} alt="Flag" />
-        <p>Voto: {movie.vote_average}</p>
+        <img
+          src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+          alt={movie.title || movie.name}
+        />
+        <div className="movie-info">
+          <h3>{movie.title || movie.name}</h3>
+          <p>⭐ {getStars(movie.vote_average)} / 5</p>
+        </div>
       </div>
     );
   };
   
-
 export default MovieCard;
